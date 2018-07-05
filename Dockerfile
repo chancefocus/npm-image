@@ -13,12 +13,11 @@ ENV PACKAGES="\
     gfortran \
     build-base \
     wget \
-    nodejs
+    nodejs \
 "
 
 RUN apk update && \
-    apk add --update --no-cache $PACKAGES && \
-    rm -r /root/.cache 
+    apk add --update --no-cache $PACKAGES
 
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
