@@ -1,8 +1,8 @@
 FROM rhoot/wine32
 
-LABEL Author="Jimin Huang huangjimin@whu.edu.cn"
+LABEL Author="Mingshi Cai i@unoiou.com"
 LABEL Version="1.0.0"
-LABEL Description="Fedora based electron continuous integration image."
+LABEL Description="Electron continuous integration image."
 
 ENV PACKAGES="\
     dumb-init \
@@ -18,10 +18,26 @@ ENV PACKAGES="\
     wget \
 "
 
+# install libs
 RUN dnf update && \
-    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
-    dnf install -y nodejs && \
-    npm update -g npm
+    dnf install Xvfb -y && \
+    dnf install xorg-x11-xkb-utils xorg-x11-apps -y && \
+    dnf install gkt3 -y && \
+    dnf install libXScrnSaver -y && \
+    dnf install GConf2 -y
+
+# install latest nodejs on Fedora
+RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
+    dnf install -y nodejs
+
+# nodejs 8.10.x actually downgrades npm to 5.6.0, upgrade npm
+RUN npm i npm -g
+
+# install electron
+RUN npm i -g electron --unsafe-perm=true --allow-root
+
+# set machine-id uuid can generated from uuid
+RUN echo 0a32214883ec11e89dc10242ac110003 > /etc/machine-id
 
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
