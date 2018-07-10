@@ -36,7 +36,7 @@ RUN npm i npm -g
 # install electron
 RUN npm i -g electron --unsafe-perm=true --allow-root
 
-# set machine-id uuid can generated from uuid
+# set machine-id. uuid can generated from uuid
 RUN echo 0a32214883ec11e89dc10242ac110003 > /etc/machine-id
 
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
