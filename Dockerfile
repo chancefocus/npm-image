@@ -15,10 +15,11 @@ RUN dnf update -y && \
 RUN curl --silent --location https://rpm.nodesource.com/setup_8.x | bash - && \
     dnf install nodejs -y && node --version && \
     # nodejs 8.10.x actually downgrades npm to 5.6.0, upgrade npm
-    npm install npm -g && npm --version && \
+    npm install npm -g && npm --version
     # whereis npm && ln -s /usr/lib/node_modules/npm/bin/npm-cli.js /bin/npm && npm --version
     # install electron
-    npm i -g electron --unsafe-perm=true --allow-root && \
+
+RUN npm i -g electron --unsafe-perm=true --allow-root && \
     # set machine-id. uuid can generated from uuid
     echo 0a32214883ec11e89dc10242ac110003 > /etc/machine-id
 
