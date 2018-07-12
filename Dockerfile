@@ -7,7 +7,7 @@ LABEL Description="Electron continuous integration image."
 # install libs
 RUN dnf update -y && \
     dnf install Xvfb -y && \
-    dnf install gtk3 -y && \
+    dnf install gtk3 gtk2 -y && \
     dnf install xorg-x11-xkb-utils xorg-x11-apps -y && \
     dnf install libXScrnSaver GConf2 -y
 
